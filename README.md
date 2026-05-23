@@ -1,3 +1,5 @@
+![Banner](./docs/images/banner.png)
+
 # VPSeccret
 
 **VPSeccret** es una plataforma web en desarrollo para gestionar servidores VPS autorizados y desplegar proyectos web de forma guiada, privada y automatizada.
@@ -124,17 +126,4 @@ SQLite se utilizará para almacenar:
 
 El proyecto estará organizado en varias capas:
 
-```text
-Usuario / Administrador
-        ↓
-Frontend React + Vite
-        ↓
-Backend API Node.js + Express
-        ↓
-SQLite / Almacenamiento temporal
-        ↓
-Conexión privada a VPS
-        ↓
-Servidores VPS autorizados
-        ↓
-Nginx / PM2 / SSL / Apps desplegadas
+![Arquitectura](./docs/images/Arquitectura.png)
