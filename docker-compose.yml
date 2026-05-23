@@ -1,0 +1,44 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: vpseccret-backend
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_PATH: /app/database/vpseccret.sqlite
+      TEMP_FOLDER: /app/temp
+      UPLOADS_FOLDER: /app/uploads
+    volumes:
+      - ./backend:/app/backend
+      - ./database:/app/database
+      - ./uploads:/app/uploads
+      - ./temp:/app/temp
+      - vpseccret-root-node-modules:/app/node_modules
+      - vpseccret-backend-node-modules:/app/backend/node_modules
+    command: sh -c "pnpm install --filter backend... && pnpm --filter backend dev"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: vpseccret-frontend
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app/frontend
+      - vpseccret-root-node-modules:/app/node_modules
+      - vpseccret-frontend-node-modules:/app/frontend/node_modules
+    command: sh -c "pnpm install --filter frontend... && pnpm --filter frontend dev"
+    depends_on:
+      - backend
+
+volumes:
+  vpseccret-root-node-modules:
+  vpseccret-backend-node-modules:
+  vpseccret-frontend-node-modules:

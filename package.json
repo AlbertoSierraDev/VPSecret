@@ -1,0 +1,14 @@
+{
+  "name": "vpseccret",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Panel web local para gestionar VPS y desplegar proyectos frontend React/Vite de forma guiada.",
+  "scripts": {
+    "dev": "pnpm --parallel --filter backend --filter frontend dev",
+    "dev:backend": "pnpm --filter backend dev",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "build:frontend": "pnpm --filter frontend build",
+    "start:backend": "pnpm --filter backend start"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
