@@ -296,7 +296,8 @@ export async function testVpsConnectionController(req, res, next) {
         vps_id: id,
         type: "ssh_connection",
         level: "error",
-        message: `Error al conectar por SSH: ${error.message}`,
+        message:
+          "Error al conectar por SSH. Revisa host, puerto, usuario o contraseña.",
       });
 
       return res.status(400).json({

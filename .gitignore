@@ -8,11 +8,15 @@ pnpm-debug.log*
 .env.local
 
 # SQLite
+# SQLite
 database/*.sqlite
 database/*.sqlite-journal
+database/*.sqlite-wal
+database/*.sqlite-shm
 database/*.db
 database/*.db-journal
-
+database/*.db-wal
+database/*.db-shm
 # Uploads
 uploads/*
 !uploads/.gitkeep

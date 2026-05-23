@@ -4,6 +4,7 @@ import { env } from "./config/env.js";
 import { initDatabase } from "./database/initDatabase.js";
 import dbRoutes from "./routes/dbRoutes.js";
 import vpsRoutes from "./routes/vpsRoutes.js";
+import logsRoutes from "./routes/logsRoutes.js";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/db", dbRoutes);
 app.use("/api/vps", vpsRoutes);
+app.use("/api/logs", logsRoutes);
 
 app.use((err, req, res, next) => {
   console.error("Error interno:", err.message);

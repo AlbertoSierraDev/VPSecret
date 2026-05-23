@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
+import { LogsPanel } from "../components/LogsPanel.jsx";
 import { VpsForm } from "../components/VpsForm.jsx";
 import { VpsList } from "../components/VpsList.jsx";
 import {
   createVps,
   deleteVps,
+  getLogs,
   getVpsList,
   testVpsConnection,
 } from "../services/vpsApi.js";
 
 export function VpsPage() {
   const [vpsList, setVpsList] = useState([]);
+  const [logs, setLogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingLogs, setIsLoadingLogs] = useState(true);
   const [pageError, setPageError] = useState("");
 
   async function loadVpsList() {
@@ -24,6 +28,19 @@ export function VpsPage() {
       setPageError("No se pudo cargar el listado de VPS.");
     } finally {
       setIsLoading(false);
+    }
+  }
+
+  async function loadLogs() {
+    setIsLoadingLogs(true);
+
+    try {
+      const response = await getLogs({ type: "ssh_connection" });
+      setLogs(response.data || []);
+    } catch (error) {
+      console.error("No se pudieron cargar los logs:", error);
+    } finally {
+      setIsLoadingLogs(false);
     }
   }
 
@@ -41,6 +58,7 @@ export function VpsPage() {
 
     await deleteVps(id);
     await loadVpsList();
+    await loadLogs();
   }
 
   async function handleTestConnection(id) {
@@ -55,15 +73,18 @@ export function VpsPage() {
     try {
       await testVpsConnection(id, password);
       await loadVpsList();
+      await loadLogs();
       window.alert("Conexión SSH correcta.");
     } catch (error) {
       await loadVpsList();
+      await loadLogs();
       window.alert(error.data?.message || "No se pudo conectar por SSH.");
     }
   }
 
   useEffect(() => {
     loadVpsList();
+    loadLogs();
   }, []);
 
   return (
@@ -95,6 +116,10 @@ export function VpsPage() {
             onTestConnection={handleTestConnection}
           />
         )}
+      </section>
+
+      <section className="logs-section">
+        <LogsPanel logs={logs} isLoading={isLoadingLogs} onReload={loadLogs} />
       </section>
     </main>
   );

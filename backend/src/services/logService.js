@@ -37,3 +37,56 @@ export function createLog({
     created_at: now,
   };
 }
+
+export function getLogs({ vps_id, deployment_id, type, level, limit = 100 }) {
+  const db = getDatabase();
+
+  const conditions = [];
+  const params = [];
+
+  if (vps_id) {
+    conditions.push("logs.vps_id = ?");
+    params.push(Number(vps_id));
+  }
+
+  if (deployment_id) {
+    conditions.push("logs.deployment_id = ?");
+    params.push(Number(deployment_id));
+  }
+
+  if (type) {
+    conditions.push("logs.type = ?");
+    params.push(type);
+  }
+
+  if (level) {
+    conditions.push("logs.level = ?");
+    params.push(level);
+  }
+
+  const whereClause =
+    conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+
+  params.push(Number(limit));
+
+  return db
+    .prepare(
+      `
+      SELECT
+        logs.id,
+        logs.deployment_id,
+        logs.vps_id,
+        vps.name AS vps_name,
+        logs.type,
+        logs.level,
+        logs.message,
+        logs.created_at
+      FROM logs
+      LEFT JOIN vps ON vps.id = logs.vps_id
+      ${whereClause}
+      ORDER BY logs.created_at DESC
+      LIMIT ?
+      `,
+    )
+    .all(...params);
+}

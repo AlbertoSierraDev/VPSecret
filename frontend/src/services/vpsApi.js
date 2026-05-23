@@ -44,3 +44,23 @@ export async function testVpsConnection(id, password) {
     body: JSON.stringify({ password }),
   });
 }
+
+export async function getLogs(params = {}) {
+  const searchParams = new URLSearchParams();
+
+  if (params.vps_id) {
+    searchParams.set("vps_id", params.vps_id);
+  }
+
+  if (params.type) {
+    searchParams.set("type", params.type);
+  }
+
+  if (params.level) {
+    searchParams.set("level", params.level);
+  }
+
+  const query = searchParams.toString();
+
+  return request(`/logs${query ? `?${query}` : ""}`);
+}
