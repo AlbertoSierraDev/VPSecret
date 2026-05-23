@@ -4,7 +4,12 @@ import {
   createVps,
   updateVps,
   deleteVps,
+  updateVpsConnectionSuccess,
+  updateVpsConnectionFailure,
 } from "../services/vpsService.js";
+
+import { testSshConnection } from "../services/sshService.js";
+import { createLog } from "../services/logService.js";
 
 function isEmptyString(value) {
   return typeof value === "string" && value.trim() === "";
@@ -226,6 +231,83 @@ export function deleteVpsController(req, res, next) {
       status: "ok",
       message: "VPS eliminada correctamente.",
     });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function testVpsConnectionController(req, res, next) {
+  try {
+    const id = Number(req.params.id);
+    const { password } = req.body;
+
+    if (!password || typeof password !== "string" || password.trim() === "") {
+      return res.status(400).json({
+        status: "error",
+        message: "La contraseña SSH es obligatoria para probar la conexión.",
+      });
+    }
+
+    const vps = getVpsById(id);
+
+    if (!vps) {
+      return res.status(404).json({
+        status: "error",
+        message: "VPS no encontrada.",
+      });
+    }
+
+    createLog({
+      vps_id: id,
+      type: "ssh_connection",
+      level: "info",
+      message: `Iniciando prueba de conexión SSH con ${vps.ssh_user}@${vps.host}:${vps.ssh_port}`,
+    });
+
+    try {
+      const result = await testSshConnection({
+        host: vps.host,
+        port: vps.ssh_port,
+        username: vps.ssh_user,
+        password,
+      });
+
+      const updatedVps = updateVpsConnectionSuccess(id, result.detectedOs);
+
+      createLog({
+        vps_id: id,
+        type: "ssh_connection",
+        level: "success",
+        message: "Conexión SSH realizada correctamente.",
+      });
+
+      return res.json({
+        status: "ok",
+        message: "Conexión SSH correcta.",
+        data: {
+          vps: updatedVps,
+          detected_os: result.detectedOs,
+        },
+      });
+    } catch (error) {
+      const updatedVps = updateVpsConnectionFailure(id);
+
+      createLog({
+        vps_id: id,
+        type: "ssh_connection",
+        level: "error",
+        message: `Error al conectar por SSH: ${error.message}`,
+      });
+
+      return res.status(400).json({
+        status: "error",
+        message:
+          "No se pudo conectar por SSH. Revisa host, puerto, usuario o contraseña.",
+        data: {
+          vps: updatedVps,
+        },
+      });
+    }
   } catch (error) {
     return next(error);
   }

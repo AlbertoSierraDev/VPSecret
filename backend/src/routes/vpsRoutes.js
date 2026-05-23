@@ -5,13 +5,15 @@ import {
   createVpsController,
   updateVpsController,
   deleteVpsController,
+  testVpsConnectionController,
 } from "../controllers/vpsController.js";
 
 const router = Router();
 
 router.get("/", listVpsController);
-router.get("/:id", getVpsController);
 router.post("/", createVpsController);
+router.post("/:id/test-connection", testVpsConnectionController);
+router.get("/:id", getVpsController);
 router.put("/:id", updateVpsController);
 router.delete("/:id", deleteVpsController);
 

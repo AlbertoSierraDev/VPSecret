@@ -1,0 +1,46 @@
+const API_BASE_URL = "http://localhost:3000/api";
+
+async function request(path, options = {}) {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {}),
+    },
+    ...options,
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    const error = new Error(data.message || "Error en la petición");
+    error.data = data;
+    error.status = response.status;
+    throw error;
+  }
+
+  return data;
+}
+
+export async function getVpsList() {
+  return request("/vps");
+}
+
+export async function createVps(payload) {
+  return request("/vps", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteVps(id) {
+  return request(`/vps/${id}`, {
+    method: "DELETE",
+  });
+}
+
+export async function testVpsConnection(id, password) {
+  return request(`/vps/${id}/test-connection`, {
+    method: "POST",
+    body: JSON.stringify({ password }),
+  });
+}

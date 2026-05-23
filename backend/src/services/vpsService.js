@@ -146,3 +146,41 @@ export function deleteVps(id) {
 
   return true;
 }
+
+export function updateVpsConnectionSuccess(id, detectedOs) {
+  const db = getDatabase();
+
+  const now = new Date().toISOString();
+
+  db.prepare(
+    `
+    UPDATE vps
+    SET
+      detected_os = ?,
+      status = ?,
+      last_successful_connection_at = ?,
+      updated_at = ?
+    WHERE id = ?
+    `,
+  ).run(detectedOs, "online", now, now, id);
+
+  return getVpsById(id);
+}
+
+export function updateVpsConnectionFailure(id) {
+  const db = getDatabase();
+
+  const now = new Date().toISOString();
+
+  db.prepare(
+    `
+    UPDATE vps
+    SET
+      status = ?,
+      updated_at = ?
+    WHERE id = ?
+    `,
+  ).run("offline", now, id);
+
+  return getVpsById(id);
+}
