@@ -9,6 +9,7 @@ pnpm-debug.log*
 
 # SQLite
 # SQLite
+# SQLite
 database/*.sqlite
 database/*.sqlite-journal
 database/*.sqlite-wal
@@ -17,6 +18,15 @@ database/*.db
 database/*.db-journal
 database/*.db-wal
 database/*.db-shm
+
+backend/database/*.sqlite
+backend/database/*.sqlite-journal
+backend/database/*.sqlite-wal
+backend/database/*.sqlite-shm
+backend/database/*.db
+backend/database/*.db-journal
+backend/database/*.db-wal
+backend/database/*.db-shm
 # Uploads
 uploads/*
 !uploads/.gitkeep

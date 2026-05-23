@@ -27,7 +27,12 @@ export function listLogsController(req, res, next) {
       });
     }
 
-    const safeLimit = Math.min(Number(limit || 100), 200);
+    const parsedLimit = Number(limit || 100);
+
+    const safeLimit =
+      Number.isInteger(parsedLimit) && parsedLimit > 0
+        ? Math.min(parsedLimit, 200)
+        : 100;
 
     const logs = getLogs({
       vps_id,
