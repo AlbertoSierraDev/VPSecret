@@ -6,6 +6,7 @@ import dbRoutes from "./routes/dbRoutes.js";
 import vpsRoutes from "./routes/vpsRoutes.js";
 import logsRoutes from "./routes/logsRoutes.js";
 import precheckRoutes from "./routes/precheckRoutes.js";
+import buildRoutes from "./routes/buildRoutes.js";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/api/db", dbRoutes);
 app.use("/api/vps", vpsRoutes);
 app.use("/api/logs", logsRoutes);
 app.use("/api/precheck", precheckRoutes);
+app.use("/api/build", buildRoutes);
 
 app.use((err, req, res, next) => {
   console.error("Error interno:", err.message);

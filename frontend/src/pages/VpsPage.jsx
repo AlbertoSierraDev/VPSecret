@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { BuildPanel } from "../components/BuildPanel.jsx";
 import { LogsPanel } from "../components/LogsPanel.jsx";
+import { PrecheckPanel } from "../components/PrecheckPanel.jsx";
 import { VpsForm } from "../components/VpsForm.jsx";
 import { VpsList } from "../components/VpsList.jsx";
 import {
@@ -7,6 +9,8 @@ import {
   deleteVps,
   getLogs,
   getVpsList,
+  runLocalBuild,
+  runPrecheck,
   testVpsConnection,
 } from "../services/vpsApi.js";
 
@@ -35,7 +39,7 @@ export function VpsPage() {
     setIsLoadingLogs(true);
 
     try {
-      const response = await getLogs({ type: "ssh_connection" });
+      const response = await getLogs();
       setLogs(response.data || []);
     } catch (error) {
       console.error("No se pudieron cargar los logs:", error);
@@ -82,6 +86,18 @@ export function VpsPage() {
     }
   }
 
+  async function handleRunPrecheck(file) {
+    const response = await runPrecheck(file);
+    await loadLogs();
+    return response;
+  }
+
+  async function handleRunBuild(file) {
+    const response = await runLocalBuild(file);
+    await loadLogs();
+    return response;
+  }
+
   useEffect(() => {
     loadVpsList();
     loadLogs();
@@ -116,6 +132,14 @@ export function VpsPage() {
             onTestConnection={handleTestConnection}
           />
         )}
+      </section>
+
+      <section className="precheck-section">
+        <PrecheckPanel onRunPrecheck={handleRunPrecheck} />
+      </section>
+
+      <section className="build-section">
+        <BuildPanel onRunBuild={handleRunBuild} />
       </section>
 
       <section className="logs-section">

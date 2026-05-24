@@ -64,3 +64,47 @@ export async function getLogs(params = {}) {
 
   return request(`/logs${query ? `?${query}` : ""}`);
 }
+
+export async function runLocalBuild(file) {
+  const formData = new FormData();
+  formData.append("project_zip", file);
+
+  const response = await fetch(`${API_BASE_URL}/build`, {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    const error = new Error(
+      data.message || "Error al ejecutar el build local.",
+    );
+    error.data = data;
+    error.status = response.status;
+    throw error;
+  }
+
+  return data;
+}
+
+export async function runPrecheck(file) {
+  const formData = new FormData();
+  formData.append("project_zip", file);
+
+  const response = await fetch(`${API_BASE_URL}/precheck`, {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    const error = new Error(data.message || "Error al ejecutar el pre-check.");
+    error.data = data;
+    error.status = response.status;
+    throw error;
+  }
+
+  return data;
+}
