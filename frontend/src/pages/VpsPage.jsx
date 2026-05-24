@@ -4,11 +4,13 @@ import { LogsPanel } from "../components/LogsPanel.jsx";
 import { PrecheckPanel } from "../components/PrecheckPanel.jsx";
 import { VpsForm } from "../components/VpsForm.jsx";
 import { VpsList } from "../components/VpsList.jsx";
+import { DeployPanel } from "../components/DeployPanel.jsx";
 import {
   createVps,
   deleteVps,
   getLogs,
   getVpsList,
+  runDeploy,
   runLocalBuild,
   runPrecheck,
   testVpsConnection,
@@ -98,6 +100,13 @@ export function VpsPage() {
     return response;
   }
 
+  async function handleRunDeploy(payload) {
+    const response = await runDeploy(payload);
+    await loadVpsList();
+    await loadLogs();
+    return response;
+  }
+
   useEffect(() => {
     loadVpsList();
     loadLogs();
@@ -140,6 +149,10 @@ export function VpsPage() {
 
       <section className="build-section">
         <BuildPanel onRunBuild={handleRunBuild} />
+      </section>
+
+      <section className="deploy-section">
+        <DeployPanel vpsList={vpsList} onRunDeploy={handleRunDeploy} />
       </section>
 
       <section className="logs-section">

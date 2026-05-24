@@ -108,3 +108,28 @@ export async function runPrecheck(file) {
 
   return data;
 }
+
+export async function runDeploy({ file, projectName, vpsId, sshPassword }) {
+  const formData = new FormData();
+
+  formData.append("project_zip", file);
+  formData.append("project_name", projectName);
+  formData.append("vps_id", vpsId);
+  formData.append("ssh_password", sshPassword);
+
+  const response = await fetch(`${API_BASE_URL}/deploy`, {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    const error = new Error(data.message || "Error al ejecutar el despliegue.");
+    error.data = data;
+    error.status = response.status;
+    throw error;
+  }
+
+  return data;
+}
