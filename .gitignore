@@ -18,7 +18,11 @@ database/*.db
 database/*.db-journal
 database/*.db-wal
 database/*.db-shm
+database/vpseccret.sqlite
+database/vpseccret.sqlite-shm
+database/vpseccret.sqlite-wal
 
+backend/database/vpseccret.sqlite
 backend/database/*.sqlite
 backend/database/*.sqlite-journal
 backend/database/*.sqlite-wal
