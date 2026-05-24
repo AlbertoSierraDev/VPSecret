@@ -8,6 +8,7 @@ import logsRoutes from "./routes/logsRoutes.js";
 import precheckRoutes from "./routes/precheckRoutes.js";
 import buildRoutes from "./routes/buildRoutes.js";
 import deployRoutes from "./routes/deployRoutes.js";
+import nginxRoutes from "./routes/nginxRoutes.js";
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/api/logs", logsRoutes);
 app.use("/api/precheck", precheckRoutes);
 app.use("/api/build", buildRoutes);
 app.use("/api/deploy", deployRoutes);
+app.use("/api/nginx", nginxRoutes);
 
 app.use((err, req, res, next) => {
   console.error("Error interno:", err.message);

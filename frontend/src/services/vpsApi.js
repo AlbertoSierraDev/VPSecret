@@ -133,3 +133,36 @@ export async function runDeploy({ file, projectName, vpsId, sshPassword }) {
 
   return data;
 }
+
+export async function configureNginx({
+  vpsId,
+  projectName,
+  domain,
+  sshPassword,
+  sudoPassword,
+}) {
+  const response = await fetch(`${API_BASE_URL}/nginx/configure`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      vps_id: vpsId,
+      project_name: projectName,
+      domain,
+      ssh_password: sshPassword,
+      sudo_password: sudoPassword || "",
+    }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    const error = new Error(data.message || "Error al configurar Nginx.");
+    error.data = data;
+    error.status = response.status;
+    throw error;
+  }
+
+  return data;
+}

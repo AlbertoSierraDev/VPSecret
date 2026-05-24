@@ -5,7 +5,9 @@ import { PrecheckPanel } from "../components/PrecheckPanel.jsx";
 import { VpsForm } from "../components/VpsForm.jsx";
 import { VpsList } from "../components/VpsList.jsx";
 import { DeployPanel } from "../components/DeployPanel.jsx";
+import { NginxPanel } from "../components/NginxPanel.jsx";
 import {
+  configureNginx,
   createVps,
   deleteVps,
   getLogs,
@@ -107,6 +109,12 @@ export function VpsPage() {
     return response;
   }
 
+  async function handleConfigureNginx(payload) {
+    const response = await configureNginx(payload);
+    await loadLogs();
+    return response;
+  }
+
   useEffect(() => {
     loadVpsList();
     loadLogs();
@@ -153,6 +161,10 @@ export function VpsPage() {
 
       <section className="deploy-section">
         <DeployPanel vpsList={vpsList} onRunDeploy={handleRunDeploy} />
+      </section>
+
+      <section className="nginx-section">
+        <NginxPanel vpsList={vpsList} onConfigureNginx={handleConfigureNginx} />
       </section>
 
       <section className="logs-section">
