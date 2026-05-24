@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.js",
+    "dev": "nodemon --watch src --ext js,mjs,cjs,json src/app.js",
     "start": "node src/app.js"
   },
   "keywords": [],
@@ -14,10 +14,12 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "adm-zip": "^0.5.17",
     "better-sqlite3": "^12.10.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "multer": "^2.1.1",
     "ssh2": "^1.17.0"
   },
   "devDependencies": {
