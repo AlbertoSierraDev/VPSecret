@@ -65,6 +65,34 @@ export async function getLogs(params = {}) {
   return request(`/logs${query ? `?${query}` : ""}`);
 }
 
+export async function getDeployments(params = {}) {
+  const searchParams = new URLSearchParams();
+
+  if (params.vps_id) {
+    searchParams.set("vps_id", params.vps_id);
+  }
+
+  if (params.status) {
+    searchParams.set("status", params.status);
+  }
+
+  if (params.project_name) {
+    searchParams.set("project_name", params.project_name);
+  }
+
+  if (params.limit) {
+    searchParams.set("limit", params.limit);
+  }
+
+  const query = searchParams.toString();
+
+  return request(`/deployments${query ? `?${query}` : ""}`);
+}
+
+export async function getDeploymentDetail(id) {
+  return request(`/deployments/${id}`);
+}
+
 export async function runLocalBuild(file) {
   const formData = new FormData();
   formData.append("project_zip", file);
