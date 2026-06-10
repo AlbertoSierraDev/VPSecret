@@ -1,0 +1,33 @@
+.precheck-result,
+.build-error-output {
+  margin-top: 18px;
+  border: 1px solid rgba(30, 58, 95, 0.82);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(7, 17, 31, 0.9);
+}
+
+.precheck-result h3,
+.precheck-result h4 {
+  margin: 0 0 10px;
+}
+
+.precheck-result ul {
+  margin: 10px 0 0;
+  color: var(--color-text-secondary);
+}
+
+.precheck-ok {
+  border-color: rgba(34, 197, 94, 0.42);
+}
+
+.precheck-error {
+  border-color: rgba(239, 68, 68, 0.42);
+}
+
+.build-error-output {
+  overflow: auto;
+  color: #fecaca;
+  font-family: "Cascadia Code", Consolas, monospace;
+  white-space: pre-wrap;
+}

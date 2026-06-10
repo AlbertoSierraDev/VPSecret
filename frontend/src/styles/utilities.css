@@ -1,0 +1,87 @@
+.eyebrow {
+  margin: 0 0 8px !important;
+  color: var(--color-primary) !important;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  font-weight: 900;
+}
+
+.warning-box {
+  border: 1px solid rgba(250, 204, 21, 0.36);
+  background: rgba(250, 204, 21, 0.08);
+  color: #fde68a;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+}
+
+.error-message {
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  background: rgba(239, 68, 68, 0.1);
+  color: #fecaca;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.empty-state h2,
+.empty-state h3 {
+  color: var(--color-text-main);
+}
+
+.badge,
+.status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.badge {
+  border: 1px solid rgba(0, 217, 255, 0.42);
+  background: rgba(0, 217, 255, 0.1);
+  color: var(--color-primary);
+}
+
+.status {
+  background: rgba(170, 184, 212, 0.12);
+  color: var(--color-text-secondary);
+}
+
+.status-online {
+  background: rgba(34, 197, 94, 0.14);
+  color: #86efac;
+}
+
+.status-offline {
+  background: rgba(239, 68, 68, 0.14);
+  color: #fca5a5;
+}
+
+.status-success {
+  background: rgba(34, 197, 94, 0.14);
+  color: #86efac;
+}
+
+.status-failed {
+  background: rgba(239, 68, 68, 0.14);
+  color: #fca5a5;
+}
+
+.status-running,
+.status-pending {
+  background: rgba(250, 204, 21, 0.14);
+  color: #fde68a;
+}
+
+.small-empty {
+  padding: 16px;
+}

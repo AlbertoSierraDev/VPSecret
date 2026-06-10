@@ -1,5 +1,5 @@
 import { VpsPage } from "./pages/VpsPage.jsx";
-import "./styles/app.css";
+import "./styles/index.css";
 
 function App() {
   return <VpsPage />;

@@ -1,0 +1,83 @@
+.logs-panel {
+  overflow: hidden;
+}
+
+.logs-list {
+  display: grid;
+  gap: 12px;
+}
+
+.log-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid rgba(30, 58, 95, 0.82);
+  background: #07111f;
+  border-radius: 8px;
+  padding: 14px;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+
+.log-main {
+  display: grid;
+  gap: 8px;
+}
+
+.log-main p {
+  margin: 0;
+  color: var(--color-text-main);
+}
+
+.log-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.log-level {
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.log-level-info {
+  background: rgba(0, 217, 255, 0.12);
+  color: var(--color-primary);
+}
+
+.log-level-success {
+  background: rgba(34, 197, 94, 0.14);
+  color: #86efac;
+}
+
+.log-level-warning {
+  background: rgba(250, 204, 21, 0.14);
+  color: #fde68a;
+}
+
+.log-level-error {
+  background: rgba(239, 68, 68, 0.14);
+  color: #fca5a5;
+}
+
+.log-item time {
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .log-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .log-item time {
+    white-space: normal;
+  }
+}

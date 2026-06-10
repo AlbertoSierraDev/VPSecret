@@ -1,0 +1,81 @@
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.metric-card {
+  display: grid;
+  gap: 8px;
+  padding: 22px;
+  background: linear-gradient(180deg, rgba(11, 22, 40, 0.96), rgba(7, 17, 31, 0.96));
+}
+
+.metric-card span,
+.settings-grid span {
+  color: var(--color-text-secondary);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.metric-card strong {
+  color: var(--color-primary);
+  font-size: 2.35rem;
+  line-height: 1;
+}
+
+.metric-card p,
+.placeholder-panel p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.flow-list,
+.settings-grid,
+.placeholder-grid {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.flow-list span,
+.placeholder-grid span,
+.settings-grid div {
+  border: 1px solid rgba(30, 58, 95, 0.8);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(7, 17, 31, 0.72);
+  color: var(--color-text-secondary);
+}
+
+.placeholder-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.settings-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.settings-grid div {
+  display: grid;
+  gap: 8px;
+}
+
+.settings-grid strong {
+  color: var(--color-primary);
+  font-size: 1.2rem;
+}
+
+@media (max-width: 1080px) {
+  .summary-grid,
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .placeholder-grid {
+    grid-template-columns: 1fr;
+  }
+}

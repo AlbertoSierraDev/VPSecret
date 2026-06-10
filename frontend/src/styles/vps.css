@@ -1,0 +1,47 @@
+.vps-list {
+  display: grid;
+  gap: 14px;
+}
+
+.vps-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  border: 1px solid rgba(30, 58, 95, 0.82);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(7, 17, 31, 0.9);
+}
+
+.vps-item h3 {
+  margin: 0 0 4px;
+}
+
+.vps-item p {
+  margin: 0 0 4px;
+  color: var(--color-text-secondary);
+}
+
+.vps-item small {
+  display: block;
+  color: var(--color-text-secondary);
+}
+
+.vps-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 720px) {
+  .vps-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .vps-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
